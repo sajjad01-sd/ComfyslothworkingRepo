@@ -23,7 +23,20 @@ const Filters = () => {
   return (
     <Wrapper>
       <div className="content">
-        <form></form>
+        <form onSubmit={(e) => e.preventDefault()}>
+          {/* search input */}
+          <div className="form-control">
+            <input
+              type="text"
+              name="text"
+              placeholder="search"
+              value={text}
+              className="search-input"
+              onChange={updateFilters}
+            />
+          </div>
+          {/* end search input */}
+        </form>
       </div>
     </Wrapper>
   );
