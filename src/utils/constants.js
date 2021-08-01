@@ -40,15 +40,15 @@ export const services = [
   },
 ];
 
-const dynamicUrl = urlDetector();
+// const dynamicUrl = urlDetector();
 
 //MY api
-export const products_url = `${dynamicUrl}/api/v1/store-products`;
+// export const products_url = `${dynamicUrl}/api/v1/store-products`;
 
-export const single_product_url = `${dynamicUrl}/api/v1/store-products`;
+// export const single_product_url = `${dynamicUrl}/api/v1/store-products`;
 
 //Teacher api
 
-// export const products_url = "https://course-api.com/react-store-products";
+export const products_url = "https://course-api.com/react-store-products";
 
-// export const single_product_url = `https://course-api.com/react-store-single-product?id=`;
+export const single_product_url = `https://course-api.com/react-store-single-product?id=`;

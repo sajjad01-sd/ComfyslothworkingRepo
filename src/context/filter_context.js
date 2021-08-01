@@ -62,9 +62,25 @@ export const FilterProvider = ({ children }) => {
     let name = e.target.name;
     let value = e.target.value;
 
+    if (name === "category") {
+      value = e.target.textContent;
+    }
+    if (name === "color") {
+      value = e.target.dataset.color;
+    }
+    if (name === "price") {
+      value = Number(value);
+    }
+    if (name === "shipping") {
+      value = e.target.checked;
+    }
+
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
   };
-  const clearFilters = () => {};
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
   return (
     <FilterContext.Provider
       value={{

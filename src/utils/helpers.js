@@ -7,12 +7,19 @@ export const formatPrice = (number) => {
   return newNumber;
 };
 
-export const urlDetector = () => {
-  const mainUrl = window.location.href.includes("http://localhost")
-    ? "https://comfyslothapi.herokuapp.com"
-    : window.location.href;
-  const wantedUrl = mainUrl.split(".com")[0].concat(".com");
-  return wantedUrl;
-};
+// export const urlDetector = () => {
+//   const mainUrl = window.location.href.includes("http://localhost")
+//     ? "https://comfyslothapi.herokuapp.com"
+//     : window.location.href;
+//   const wantedUrl = mainUrl.split(".com")[0].concat(".com");
+//   return wantedUrl;
+// };
 
-export const getUniqueValues = () => {};
+export const getUniqueValues = (data, type) => {
+  let unique = data.map((item) => item[type]);
+  if (type === "colors") {
+    unique = unique.flat();
+    console.log(unique);
+  }
+  return ["all", ...new Set(unique)];
+};

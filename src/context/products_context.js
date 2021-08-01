@@ -40,8 +40,11 @@ export const ProductsProvider = ({ children }) => {
     dispatch({ type: GET_PRODUCTS_BEGIN });
     try {
       const responce = await fetch(url);
-      const { data } = await responce.json();
-      const products = data.products;
+      const products = await responce.json();
+      console.log(products);
+
+      // const { data } = await responce.json(); //for my api
+      // const products = data.products; // for my api
 
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
@@ -53,8 +56,11 @@ export const ProductsProvider = ({ children }) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
     try {
       const responce = await fetch(apilink);
-      const { data } = await responce.json();
-      const singleProduct = data.product;
+      // const { data } = await responce.json(); for my api
+      // const singleProduct = data.product; for my api
+
+      const singleProduct = await responce.json();
+      console.log(singleProduct);
 
       dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: singleProduct });
     } catch (error) {

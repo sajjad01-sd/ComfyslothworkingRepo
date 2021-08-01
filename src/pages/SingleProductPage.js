@@ -25,7 +25,7 @@ const SingleProductPage = () => {
   } = useProductsContext();
 
   useEffect(() => {
-    fetchSingleProduct(`${url}/${id}`);
+    fetchSingleProduct(`${url}${id}`);
   }, [id]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const SingleProductPage = () => {
     stock,
     stars,
     reviews,
-    _id: sku,
+    id: sku,
     company,
     images,
   } = product;
