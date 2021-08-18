@@ -10,6 +10,10 @@ import {
 
 const getLocalStorage = () => {
   let cart = localStorage.getItem("cart");
+
+  if (cart === null) {
+    return [];
+  }
   if (cart) {
     return JSON.parse(localStorage.getItem("cart"));
   }
