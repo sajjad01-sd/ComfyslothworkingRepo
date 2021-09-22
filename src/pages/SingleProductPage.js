@@ -10,9 +10,11 @@ import {
   AddToCart,
   Stars,
   PageHero,
+  ShowReviews,
 } from "../components";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 
 const SingleProductPage = () => {
   const { id } = useParams();
@@ -63,7 +65,10 @@ const SingleProductPage = () => {
         <div className="product-center">
           <ProductImages images={images} />
           <section className="content">
+            <div className="reviews_name">
             <h2>{name}</h2>
+            
+            </div>
             <Stars stars={stars} reviews={reviews} />
             <h5 className="price">{formatPrice(price)}</h5>
             <p className="desc">{description}</p>
@@ -78,6 +83,7 @@ const SingleProductPage = () => {
               <span>Brand: </span>
               {company}
             </p>
+            {/* <p className='btn reviews-btn'>Reviews</p> */}
             <hr />
             {stock > 0 && <AddToCart product={product} />}
           </section>
@@ -92,6 +98,14 @@ const Wrapper = styled.main`
     display: grid;
     gap: 4rem;
     margin-top: 2rem;
+  }
+  /* .reviews_name {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  } */
+  .reviews-btn {
+    margin-left: .1rem;
   }
   .price {
     color: var(--clr-primary-5);

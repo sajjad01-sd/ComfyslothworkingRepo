@@ -17,6 +17,9 @@ import Stars from './Stars'
 import CartContent from './CarContent'
 import PageHero from './PageHero'
 import StripeCheckout from './StripeCheckout'
+import ShowReviews from './ShowReviews'
+
+
 export {
   FeaturedProducts,
   Navbar,
@@ -37,4 +40,5 @@ export {
   CartContent,
   PageHero,
   StripeCheckout,
+  ShowReviews
 }
