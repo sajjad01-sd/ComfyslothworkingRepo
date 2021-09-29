@@ -6,6 +6,7 @@ import { useProductsContext } from "../context/products_context";
 import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
 
+
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
@@ -18,9 +19,11 @@ const CartButtons = () => {
           <span className="cart-value">{total_items}</span>
         </span>
       </Link>
+        <Link to='/login'>
       <button className="auth-btn" onClick={closeSidebar}>
         Login <FaUserPlus />
       </button>
+        </Link>
     </Wrapper>
   );
 };

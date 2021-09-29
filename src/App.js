@@ -11,6 +11,7 @@ import {
   Products,
   SingleProduct,
 } from "./pages";
+import { Login } from "./pages/Login";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route exact path="/about">
           <About />
+        </Route>
+        <Route exact path="/login">
+          <Login />
         </Route>
         <Route exact path="/cart">
           <Cart />
