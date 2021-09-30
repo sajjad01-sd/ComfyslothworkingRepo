@@ -25,8 +25,8 @@ export const Signup = () => {
                 <div className='content-area'>
                     
                     <form action="">
-                    <h2>Sign In.</h2>
-                    <p>Sign in with your data that you will use during registration.</p>
+                    <h2>Sign Up.</h2>
+                    <p>Sign up with your data that you will use during registration.</p>
     
                     <label htmlFor="">Name</label><br/>
                     <input type="text" /><br/>
