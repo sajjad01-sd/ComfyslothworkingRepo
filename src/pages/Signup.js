@@ -1,53 +1,58 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
+import lottie from 'lottie-web';
 import styled from 'styled-components';
 import { PageHero } from '../components';
-import lottie from 'lottie-web';
 import { Link } from 'react-router-dom';
 
 
-export const Login = () => {
+export const Signup = () => {
+        const container = useRef(null)
 
-    const container = useRef(null)
+        useEffect(() => {
+            lottie.loadAnimation({
+              container: container.current,
+              renderer: 'svg',
+              loop: true,
+              autoplay: true,
+              animationData: require('../assets/SVG/Welcome.json')
+            })
+          }, []);
+    
+        return (
+            <>
+            <PageHero title="Signup"></PageHero>
+            <Wrapper>
+                <div className='content-area'>
+                    
+                    <form action="">
+                    <h2>Sign In.</h2>
+                    <p>Sign in with your data that you will use during registration.</p>
+    
+                    <label htmlFor="">Name</label><br/>
+                    <input type="text" /><br/>
 
-    useEffect(() => {
-        lottie.loadAnimation({
-          container: container.current,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          animationData: require('../assets/SVG/Login Colored.json')
-        })
-      }, []);
+                    <label htmlFor="">Email</label><br/>
+                    <input type="email" /><br/>
+    
+                    <label htmlFor="">Password</label><br/>
+                    <input type="password" /><br/>
 
-    return (
-        <>
-        <PageHero title="Login"></PageHero>
-        <Wrapper>
-            <div className='content-area'>
-                
-                <form action="">
-                <h2>Log in.</h2>
-                <p>Log in with data that you entered during registration.</p>
-
-                <label htmlFor="">Email</label><br/>
-                <input type="email" /><br/>
-
-                <label htmlFor="">Password</label><br/>
-                <input type="password" /><br/>
-                
-
-                <h5>Don't have account? Please <Link to='/signup' className='signUp_btn'>Sign Up</Link></h5>
-
-                <button>Submit</button>
-                </form>
-
-                <div>
-                <div className="container" ref={container}></div>
+                    <label htmlFor="">Password Confirm</label><br/>
+                    <input type="password" /><br/>
+                    
+    
+                    <h5>Already have an account? <Link to='/login' className='signUp_btn'>Sign in</Link></h5>
+    
+                    <button>Submit</button>
+                    </form>
+    
+                    <div>
+                    <div className="container" ref={container}></div>
+                    </div>
                 </div>
-            </div>
-
-        </Wrapper>
-        </>
+    
+            </Wrapper>
+            </>
     )
 }
 
@@ -59,12 +64,13 @@ const Wrapper = styled.div`
         align-items: center;
         flex-direction: row;
         justify-content: space-around;
-        margin-top: -7rem;
+        margin-top: -2rem;
     }
    
     .container {
         width: 50rem; 
         height: 50rem;
+        padding: 5rem;
     }
 
     form {
@@ -121,8 +127,9 @@ const Wrapper = styled.div`
             padding: 0rem 0 0 4rem;
         }
         .container {
-            width: 45rem; 
-            height: 45rem;
+            width: 40rem; 
+            height: 40rem;
+            padding: 4rem;
         }
     }
 
@@ -135,6 +142,8 @@ const Wrapper = styled.div`
         .container {
             width: 40rem; 
             height: 40rem;
+            padding: 2rem;
+
         }
     }
     @media (max-width: 600px) {
@@ -146,6 +155,8 @@ const Wrapper = styled.div`
         .container {
             width: 20rem; 
             height: 20rem;
+            padding: 0rem;
+
 
         }
 
