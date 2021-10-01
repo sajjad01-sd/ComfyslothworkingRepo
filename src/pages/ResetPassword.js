@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import { PageHero } from '../components';
 import { Link } from 'react-router-dom';
 
-
-export const Signup = () => {
+export const ResetPassword = () => {
         const container = useRef(null)
 
         useEffect(() => {
@@ -14,34 +13,27 @@ export const Signup = () => {
               renderer: 'svg',
               loop: true,
               autoplay: true,
-              animationData: require('../assets/SVG/Welcome.json')
+              animationData: require('../assets/SVG/Change-password.json')
             })
           }, []);
     
         return (
             <>
-            <PageHero title="Signup"></PageHero>
+            <PageHero title="Reset Password"></PageHero>
             <Wrapper>
                 <div className='content-area'>
                     
                     <form action="">
-                        <h2>Sign Up.</h2>
-                        <p>Sign up with your data that you will use during registration.</p>
+                        <h2>Reset Password.</h2>
+                        <p>Please change your password here.</p>
         
-                        <label htmlFor="">Name</label><br/>
-                        <input type="text" /><br/>
-
-                        <label htmlFor="">Email</label><br/>
-                        <input type="email" /><br/>
-        
-                        <label htmlFor="">Password</label><br/>
+                        <label htmlFor="">New Password</label><br/>
                         <input type="password" /><br/>
 
-                        <label htmlFor="">Password Confirm</label><br/>
+                        <label htmlFor="">New Password Confirm</label><br/>
                         <input type="password" /><br/>
                         
         
-                        <h5>Already have an account? <Link to='/login' className='signUp_btn'>Sign in</Link></h5>
         
                         <button>Submit</button>
                     </form>
@@ -54,7 +46,9 @@ export const Signup = () => {
             </Wrapper>
             </>
     )
+    
 }
+
 
 const Wrapper = styled.div`
     .content-area {
@@ -68,8 +62,8 @@ const Wrapper = styled.div`
     }
    
     .container {
-        width: 50rem; 
-        height: 50rem;
+        width: 40rem; 
+        height: 40rem;
         padding: 5rem;
     }
 
@@ -91,7 +85,7 @@ const Wrapper = styled.div`
         button {
             padding: .5rem .4rem;
             font-size: 1.4rem;
-            margin-top: .4rem;
+            margin-top: .6rem !important;
             width: 120%;
             color: #000;
             font-weight: 700;
@@ -127,8 +121,8 @@ const Wrapper = styled.div`
             padding: 0rem 0 0 4rem;
         }
         .container {
-            width: 40rem; 
-            height: 40rem;
+            width: 30rem; 
+            height: 30rem;
             padding: 4rem;
         }
     }
@@ -140,8 +134,8 @@ const Wrapper = styled.div`
             padding: 0rem 0 0 1rem;
         }
         .container {
-            width: 40rem; 
-            height: 40rem;
+            width: 30rem; 
+            height: 30rem;
             padding: 2rem;
 
         }
@@ -153,8 +147,8 @@ const Wrapper = styled.div`
             padding: 0rem 0 0 1rem;
         }
         .container {
-            width: 20rem; 
-            height: 20rem;
+            width: 15rem; 
+            height: 15rem;
             padding: 0rem;
 
 

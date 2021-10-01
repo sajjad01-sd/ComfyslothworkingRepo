@@ -12,6 +12,7 @@ import {
   SingleProduct,
 } from "./pages";
 import { Login } from "./pages/Login";
+import { ResetPassword } from "./pages/ResetPassword";
 import { Signup } from "./pages/Signup";
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <Signup />
+        </Route>
+        <Route path="/resetPassword">
+          <ResetPassword />
         </Route>
         <Route exact path="/cart">
           <Cart />

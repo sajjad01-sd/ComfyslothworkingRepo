@@ -1,3 +1,5 @@
+import lottie from 'lottie-web';
+
 export const formatPrice = (number) => {
   const newNumber = Intl.NumberFormat("en-US", {
     style: "currency",
@@ -14,6 +16,8 @@ export const formatPrice = (number) => {
 //   const wantedUrl = mainUrl.split(".com")[0].concat(".com");
 //   return wantedUrl;
 // };
+
+export const hostAddress = 'http://127.0.0.1:9000/api/v1'
 
 export const getUniqueValues = (data, type) => {
   let unique = data.map((item) => item[type]);
