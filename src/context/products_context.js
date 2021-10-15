@@ -12,6 +12,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
+import { hostAddress } from "../utils/helpers";
 
 const initialState = {
   isSidebarOpen: false,
@@ -39,12 +40,9 @@ export const ProductsProvider = ({ children }) => {
   const fetchProducts = async () => {
     dispatch({ type: GET_PRODUCTS_BEGIN });
     try {
-      const responce = await fetch(url);
-      const products = await responce.json();
-      console.log(products);
-
-      // const { data } = await responce.json(); //for my api
-      // const products = data.products; // for my api
+      const responce = await axios.get(`${hostAddress}/store-products`);
+    
+      const products = responce.data.data.products;
 
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
@@ -55,13 +53,11 @@ export const ProductsProvider = ({ children }) => {
   const fetchSingleProduct = async (apilink) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
     try {
-      const responce = await fetch(apilink);
-      // const { data } = await responce.json(); for my api
-      // const singleProduct = data.product; for my api
+      const responce = await axios.get(apilink);
+  
+      console.log(responce);
 
-      const singleProduct = await responce.json();
-      console.log(singleProduct);
-
+      const singleProduct = responce.data.data.product
       dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: singleProduct });
     } catch (error) {
       dispatch({ type: GET_SINGLE_PRODUCT_ERROR });

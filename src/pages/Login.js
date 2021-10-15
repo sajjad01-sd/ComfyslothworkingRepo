@@ -3,11 +3,18 @@ import styled from 'styled-components';
 import { PageHero } from '../components';
 import lottie from 'lottie-web';
 import { Link } from 'react-router-dom';
+import { useUserContext } from '../context/user_context';
 
 
 export const Login = () => {
-    const [resetOpen, setResetOpen] = useState(false)
+    const {getUserLoggedIn} = useUserContext();
+    const [resetOpen, setResetOpen] = useState(false);
+    const [state, setState] = useState({
+        email: '',
+        password: ''
+    })
 
+    // animated svg area start
     const container = useRef(null)
 
     useEffect(() => {
@@ -19,6 +26,17 @@ export const Login = () => {
           animationData: require('../assets/SVG/Login Colored.json')
         })
       }, []);
+    // animated svg area end
+
+      const handleLogin = () => {
+        getUserLoggedIn(state.email, state.password)
+
+        setState({...state, email: '', password: ''})
+      };
+
+      const handleReset = () => {
+
+      }
 
         return (
             <>
@@ -29,33 +47,39 @@ export const Login = () => {
                     {/* if resetOpen show reset form or show login form*/}
 
                     {resetOpen ? 
-                    <form action="">
+                    <form action="" onSubmit={(e) => {
+                        e.preventDefault();
+                        handleReset()
+                    }}>
                         <h2>Reset Password.</h2>
                         <h5>We will send you an email to reset your password.</h5>
 
                         <label htmlFor="">Email</label><br/>
                         <input type="email" /><br/>
 
-                         <button className='submit-btn'>Submit</button>
+                         <button className='submit-btn' type='submit'>Submit</button>
                         <button className='Cancel-btn' onClick={() => setResetOpen(false)}>Cancel</button>
                         
                     </form>
                     : 
-                    <form action="">
+                    <form action="" onSubmit={(e) => {
+                        e.preventDefault();
+                        handleLogin()
+                    }}>
                         <h2>Log in.</h2>
                         <p>Log in with data that you entered during registration.</p>
         
                         <label htmlFor="">Email</label><br/>
-                        <input type="email" /><br/>
+                        <input type="email" value={state.email} onChange={(e) => setState({...state, email: e.target.value})}/><br/>
         
                         <label htmlFor="">Password</label><br/>
-                        <input type="password" /><br/>
+                        <input type="password" value={state.password} onChange={(e) => setState({...state, password: e.target.value})}/><br/>
         
                         <p className='forgot_pass' onClick={() => setResetOpen(true)}>Forgot your password?</p>
         
                         <h5>Don't have account? Please <Link to='/signup' className='signUp_btn'>Sign Up</Link></h5>
         
-                        <button className='submit-btn'>Submit</button>
+                        <button className='submit-btn' type='submit'>Submit</button>
                     </form>}
                     
     

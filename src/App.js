@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/signup">
           <Signup />
         </Route>
-        <Route path="/resetPassword">
+        <Route path="/resetPassword/:id">
           <ResetPassword />
         </Route>
         <Route exact path="/cart">

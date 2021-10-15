@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { loadStripe } from '@stripe/stripe-js'
+import StripeCheckoutBtn from 'react-stripe-checkout'
+
 import {
   CardElement,
   useStripe,
@@ -14,7 +16,11 @@ import { formatPrice } from '../utils/helpers'
 import { useHistory } from 'react-router-dom'
 
 const CheckoutForm = () => {
-  return <h4>hello from Stripe Checkout </h4>
+  return (
+    <div>
+      <StripeCheckoutBtn/>
+    </div>
+  )
 }
 
 const StripeCheckout = () => {
