@@ -8,6 +8,7 @@ import { useUserContext } from "../context/user_context";
 
 
 const CartButtons = () => {
+  const {isAuthenticated} = useUserContext()
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
   return (
@@ -19,11 +20,17 @@ const CartButtons = () => {
           <span className="cart-value">{total_items}</span>
         </span>
       </Link>
+      {isAuthenticated ? 
+      <button className="auth-btn">
+        Logout <FaUserMinus/>
+      </button> 
+        :
         <Link to='/login'>
-      <button className="auth-btn" onClick={closeSidebar}>
-        Login <FaUserPlus />
-      </button>
-        </Link>
+        <button className="auth-btn" onClick={closeSidebar}>
+          Login <FaUserPlus />
+        </button>
+      </Link>
+    }
     </Wrapper>
   );
 };

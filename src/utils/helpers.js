@@ -27,3 +27,12 @@ export const getUniqueValues = (data, type) => {
   }
   return ["all", ...new Set(unique)];
 };
+
+export const getToken = () => {
+  const token = localStorage.getItem('jwt');
+
+  if(!token) {
+    return ''
+  }
+  return token
+}
