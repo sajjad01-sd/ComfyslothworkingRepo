@@ -8,7 +8,7 @@ import { useUserContext } from "../context/user_context";
 
 
 const CartButtons = () => {
-  const {isAuthenticated} = useUserContext()
+  const {isAuthenticated, userLogout} = useUserContext()
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
   return (
@@ -21,7 +21,7 @@ const CartButtons = () => {
         </span>
       </Link>
       {isAuthenticated ? 
-      <button className="auth-btn">
+      <button className="auth-btn" onClick={userLogout}>
         Logout <FaUserMinus/>
       </button> 
         :

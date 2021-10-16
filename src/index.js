@@ -8,14 +8,14 @@ import { CartProvider } from "./context/cart_context";
 import { UserProvider } from "./context/user_context";
 
 ReactDOM.render(
-  <ProductsProvider>
-    <FilterProvider>
-      <CartProvider>
-        <UserProvider>
-        <App />
-        </UserProvider>
-      </CartProvider>
-    </FilterProvider>
-  </ProductsProvider>,
+  <UserProvider>
+    <ProductsProvider>
+      <FilterProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </FilterProvider>
+    </ProductsProvider>
+  </UserProvider>,
   document.getElementById("root")
 );

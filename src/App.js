@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
+import { LoadingStart } from "./components/LoadingStart";
+import { useUserContext } from "./context/user_context";
 
 import {
   About,
@@ -8,6 +10,7 @@ import {
   Checkout,
   Error,
   Home,
+  PrivateRoute,
   Products,
   SingleProduct,
 } from "./pages";
@@ -16,6 +19,15 @@ import { ResetPassword } from "./pages/ResetPassword";
 import { Signup } from "./pages/Signup";
 
 function App() {
+  const {userLoading} = useUserContext()
+  if(userLoading) {
+    return (
+      <div className='start-loading--center'>
+        <LoadingStart/>
+      </div>
+    )
+  }
+
   return (
     <Router>
       <Navbar />
@@ -43,9 +55,9 @@ function App() {
           <Products />
         </Route>
         <Route exact path="/products/:id" children={<SingleProduct />}></Route>
-        <Route exact path="/checkout">
-          <Checkout />
-        </Route>
+
+        <PrivateRoute path='/checkout' exact children={<Checkout />}/>
+        
         <Route path="*">
           <Error />
         </Route>

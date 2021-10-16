@@ -13,7 +13,7 @@ Variables
   /* primary/main color */
   --clr-primary-5: hsl(22, 31%, 52%);
   /* lighter shades of primary color */
-  --clr-primary-6: hsl(22, 31%, 60%);
+  --clr-primary-6: hsl(23, 31%, 60%);
   --clr-primary-7: hsl(22, 31%, 67%);
   --clr-primary-8: hsl(20, 31%, 74%);
   --clr-primary-9: hsl(22, 31%, 81%);
@@ -140,6 +140,14 @@ p {
   width: 90vw;
   margin: 0 auto;
   max-width: var(--max-width);
+}
+
+.start-loading--center {
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 500px;
+
+  margin-top: 25%;
 }
 
 @media screen and (min-width: 992px) {

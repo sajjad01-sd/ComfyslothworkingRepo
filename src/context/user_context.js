@@ -5,13 +5,15 @@ import {getToken, hostAddress} from '../utils/helpers';
 
 const initalState = {
   user: [],
-  isAuthenticated: false
+  isAuthenticated: false,
+  userLoading: false,
 }
 
 const UserContext = React.createContext()
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initalState)
 
+  //Login area start
   const userIntercting = async () => {
     try {
       const token = getToken();
@@ -21,6 +23,11 @@ export const UserProvider = ({ children }) => {
         }
       }
 
+      if(!token) {
+        return ''
+      }
+
+      dispatch({type: 'userLoading'})
       const response = await axios.get(`${hostAddress}/users/me`, config)
       console.log(response);
       const user = response.data.data.doc
@@ -31,7 +38,9 @@ export const UserProvider = ({ children }) => {
       
     } catch (error) {
       const errorMessage = JSON.parse(error.request.response);
+      dispatch({type: 'userError'})
       alert(errorMessage.message);
+
     }
   }
 
@@ -39,6 +48,34 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     userIntercting()
   }, [])
+
+  let user = [];
+  const isLogin = () => {
+    
+      const token = getToken();
+      if(!token) return '';
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+      const response = axios.get(`${hostAddress}/users/me`, config).then(response => {
+        
+        user.push(response.data.data.doc.role)
+        return response.data.data.doc.role
+        
+      }).catch((error) => console.log(error))
+
+      console.log();
+
+      return user
+  }
+  const user2 = isLogin()
+  console.log(user2)  
+  
+
 
   const getUserLoggedIn = async (email, password) => {
     try {
@@ -67,8 +104,18 @@ export const UserProvider = ({ children }) => {
     
   }
 
+  const userLogout = () => {
+    localStorage.removeItem('jwt')
+    dispatch({type: "userLogout"})
+  }
+  //Login area end
+
+  //Signup area start
+
+  //Signup area end
+
   return (
-    <UserContext.Provider value={{...state, getUserLoggedIn}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting}}>{children}</UserContext.Provider>
   )
 }
 // make sure use
