@@ -49,11 +49,11 @@ export const UserProvider = ({ children }) => {
     userIntercting()
   }, [])
 
-  let user = [];
+
   const isLogin = () => {
     
       const token = getToken();
-      if(!token) return '';
+     
 
       const config = {
         headers: {
@@ -61,19 +61,17 @@ export const UserProvider = ({ children }) => {
         }
       }
 
-      const response = axios.get(`${hostAddress}/users/me`, config).then(response => {
-        
-        user.push(response.data.data.doc.role)
-        return response.data.data.doc.role
-        
-      }).catch((error) => console.log(error))
+     
+      return axios.get(`${hostAddress}/users/me`, config)
 
-      console.log();
-
-      return user
   }
-  const user2 = isLogin()
-  console.log(user2)  
+
+//  isLogin().then(x => {
+//    console.log(x);
+//  })
+
+  // const user2 = (async () => {await isLogin()})()
+  // console.log(callAsync())  
   
 
 
@@ -115,7 +113,7 @@ export const UserProvider = ({ children }) => {
   //Signup area end
 
   return (
-    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin}}>{children}</UserContext.Provider>
   )
 }
 // make sure use
