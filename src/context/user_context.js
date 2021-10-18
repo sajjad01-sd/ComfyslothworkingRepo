@@ -53,16 +53,10 @@ export const UserProvider = ({ children }) => {
   const isLogin = () => {
     
       const token = getToken();
-     
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+      if(token) {
+        return true
       }
-
-     
-      return axios.get(`${hostAddress}/users/me`, config)
 
   }
 

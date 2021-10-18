@@ -1,4 +1,4 @@
-import axios from "axios";
+                                                                                                       
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/products_reducer";
 import { products_url as url } from "../utils/constants";
@@ -13,6 +13,7 @@ import {
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
 import { hostAddress } from "../utils/helpers";
+import axiosInstance from "../utils/axiosInstance";
 
 const initialState = {
   isSidebarOpen: false,
@@ -40,12 +41,15 @@ export const ProductsProvider = ({ children }) => {
   const fetchProducts = async () => {
     dispatch({ type: GET_PRODUCTS_BEGIN });
     try {
-      const responce = await axios.get(`${hostAddress}/store-products`);
+     
+      const responce = await axiosInstance.get(`store-products`);
+      console.log(responce);
     
       const products = responce.data.data.products;
 
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
+      console.log(error);
       dispatch({ type: GET_PRODUCTS_ERROR });
     }
   };
@@ -53,7 +57,7 @@ export const ProductsProvider = ({ children }) => {
   const fetchSingleProduct = async (apilink) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
     try {
-      const responce = await axios.get(apilink);
+      const responce = await axiosInstance.get(apilink);
   
       console.log(responce);
 

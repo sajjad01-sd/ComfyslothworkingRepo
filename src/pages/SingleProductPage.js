@@ -28,7 +28,7 @@ const SingleProductPage = () => {
   } = useProductsContext();
 
   useEffect(() => {
-    fetchSingleProduct(`${hostAddress}/store-products/${id}`);
+    fetchSingleProduct(`store-products/${id}`);
   }, [id]);
 
   useEffect(() => {

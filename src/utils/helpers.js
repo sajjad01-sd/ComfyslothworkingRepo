@@ -1,4 +1,12 @@
-import lottie from 'lottie-web';
+export const localStorageService = {
+  setItem: function (key, data) {
+    localStorage.setItem(key, JSON.stringify(data))
+  },
+  getItem: function (key) {
+    let data = localStorage.getItem(key) || null;
+    return JSON.parse(data)
+  }
+}
 
 export const formatPrice = (number) => {
   const newNumber = Intl.NumberFormat("en-US", {
@@ -36,3 +44,4 @@ export const getToken = () => {
   }
   return token
 }
+
