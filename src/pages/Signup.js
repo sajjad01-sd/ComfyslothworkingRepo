@@ -1,58 +1,84 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import lottie from 'lottie-web';
 import styled from 'styled-components';
 import { PageHero } from '../components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useUserContext } from '../context/user_context';
+import { checkAuthentication, redirectAfterSubmitUser } from '../utils/helpers';
 
 
 export const Signup = () => {
-        const container = useRef(null)
+    const container = useRef(null);
+    const {userCreateAccount, user, isAuthenticated} = useUserContext()
+    const [state, setState] = useState({
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: ''
+    })
 
-        useEffect(() => {
-            lottie.loadAnimation({
+    // if authented redirect 
+    const authented = checkAuthentication(isAuthenticated, user);
+    
+    
+      useEffect(() => {
+          lottie.loadAnimation({
               container: container.current,
               renderer: 'svg',
               loop: true,
               autoplay: true,
               animationData: require('../assets/SVG/Welcome.json')
             })
-          }, []);
+        }, []);
+        
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            userCreateAccount(state.name, state.email, state.password, state.passwordConfirm)
+            
+            setState({...state, name: '', email: '', password: '', passwordConfirm: ''})
+        }
+        
+        if(authented) {
+            return (
+                <Redirect to='/checkout'></Redirect>
+            )
+        }
+
+    return (
+        <>
+        <PageHero title="Signup"></PageHero>
+        <Wrapper>
+            <div className='content-area'>
+                
+                <form action=""  onSubmit={(e) => handleSubmit(e)}>
+                    <h2>Sign Up.</h2>
+                    <p>Sign up with your data that you will use during registration.</p>
     
-        return (
-            <>
-            <PageHero title="Signup"></PageHero>
-            <Wrapper>
-                <div className='content-area'>
+                    <label htmlFor="">Name</label><br/>
+                    <input type="text" value={state.name} onChange={(e) => setState({...state, name: e.target.value})}/><br/>
+
+                    <label htmlFor="">Email</label><br/>
+                    <input type="email" value={state.email} onChange={(e) => setState({...state, email: e.target.value})}/><br/>
+    
+                    <label htmlFor="">Password</label><br/>
+                    <input type="password" value={state.password} onChange={(e) => setState({...state, password: e.target.value})}/><br/>
+
+                    <label htmlFor="">Password Confirm</label><br/>
+                    <input type="password" value={state.passwordConfirm} onChange={(e) => setState({...state, passwordConfirm: e.target.value})} /><br/>
                     
-                    <form action="">
-                        <h2>Sign Up.</h2>
-                        <p>Sign up with your data that you will use during registration.</p>
-        
-                        <label htmlFor="">Name</label><br/>
-                        <input type="text" /><br/>
-
-                        <label htmlFor="">Email</label><br/>
-                        <input type="email" /><br/>
-        
-                        <label htmlFor="">Password</label><br/>
-                        <input type="password" /><br/>
-
-                        <label htmlFor="">Password Confirm</label><br/>
-                        <input type="password" /><br/>
-                        
-        
-                        <h5>Already have an account? <Link to='/login' className='signUp_btn'>Sign in</Link></h5>
-        
-                        <button>Submit</button>
-                    </form>
     
-                    <div>
-                    <div className="container" ref={container}></div>
-                    </div>
+                    <h5>Already have an account? <Link to='/login' className='signUp_btn'>Sign in</Link></h5>
+    
+                    <button>Submit</button>
+                </form>
+
+                <div>
+                <div className="container" ref={container}></div>
                 </div>
-    
-            </Wrapper>
-            </>
+            </div>
+
+        </Wrapper>
+        </>
     )
 }
 

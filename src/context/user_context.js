@@ -1,12 +1,14 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useReducer, useState } from 'react'
 import reducer from '../reducers/user_reducer'
+import axiosInstance from '../utils/axiosInstance';
 import {getToken, hostAddress} from '../utils/helpers';
 
 const initalState = {
   user: [],
   isAuthenticated: false,
   userLoading: false,
+  kickout: false,
 }
 
 const UserContext = React.createContext()
@@ -16,19 +18,12 @@ export const UserProvider = ({ children }) => {
   //Login area start
   const userIntercting = async () => {
     try {
-      const token = getToken();
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      if(!token) {
-        return ''
-      }
+      // token check, if !token return
+      const token = getToken()
+      if(!token) return ''
 
       dispatch({type: 'userLoading'})
-      const response = await axios.get(`${hostAddress}/users/me`, config)
+      const response = await axiosInstance.get(`users/me`)
       console.log(response);
       const user = response.data.data.doc
 
@@ -50,8 +45,7 @@ export const UserProvider = ({ children }) => {
   }, [])
 
 
-  const isLogin = () => {
-    
+  const isLogin = () => { 
       const token = getToken();
 
       if(token) {
@@ -60,23 +54,12 @@ export const UserProvider = ({ children }) => {
 
   }
 
-//  isLogin().then(x => {
-//    console.log(x);
-//  })
-
-  // const user2 = (async () => {await isLogin()})()
-  // console.log(callAsync())  
   
-
 
   const getUserLoggedIn = async (email, password) => {
     try {
-      const response = await axios({
-        method: "POST",
-        url: `${hostAddress}/users/login`,
-        data: {
-          email, password,
-        }
+      const response = await axiosInstance.post("users/login", {
+        email, password,
       })
   
       console.log(response);
@@ -103,11 +86,49 @@ export const UserProvider = ({ children }) => {
   //Login area end
 
   //Signup area start
+  const userCreateAccount = async (name,email,password,passwordConfirm) => {
+      try {
+        const response = await axiosInstance.post("/users/signup", {
+          name,
+          email,
+          password,
+          passwordConfirm,
+        })
 
+        console.log(response);
+
+        const user = response.data.data.user
+        const token = response.data.token;
+  
+        //set token into local storage 
+      
+        if(token) {
+          dispatch({type: "setUser", payload: user})
+        }
+      } catch (error) {
+        const errorMessage = JSON.parse(error.request.response);
+        alert(errorMessage.message);
+      }
+  }
   //Signup area end
 
+  // password reset start
+  const passwordReset = async (email) => {
+       try {
+         const response = axiosInstance.post('users/forgotPassword', {
+           email
+         })
+       } catch (error) {
+        const errorMessage = JSON.parse(error.request.response);
+        alert(errorMessage.message);
+       }
+  };
+  // password reset end
+
+
+
   return (
-    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin, userCreateAccount, passwordReset}}>{children}</UserContext.Provider>
   )
 }
 // make sure use

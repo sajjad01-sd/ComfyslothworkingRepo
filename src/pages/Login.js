@@ -2,18 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { PageHero } from '../components';
 import lottie from 'lottie-web';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useUserContext } from '../context/user_context';
+import { checkAuthentication } from '../utils/helpers';
 
 
 export const Login = () => {
-    const {getUserLoggedIn} = useUserContext();
+    const {getUserLoggedIn, isAuthenticated, user, passwordReset} = useUserContext();
     const [resetOpen, setResetOpen] = useState(false);
     const [state, setState] = useState({
         email: '',
         password: ''
     })
 
+    const authented = checkAuthentication(isAuthenticated, user);
+
+ 
     // animated svg area start
     const container = useRef(null)
 
@@ -34,9 +38,16 @@ export const Login = () => {
         setState({...state, email: '', password: ''})
       };
 
-      const handleReset = () => {
-
+      const handleResetPassword = () => {
+        passwordReset(state.email)
+        setState({...state, email: ''})
       }
+
+      if(authented) {
+        return (
+            <Redirect to='/checkout'></Redirect>
+        )
+    }
 
         return (
             <>
@@ -49,13 +60,13 @@ export const Login = () => {
                     {resetOpen ? 
                     <form action="" onSubmit={(e) => {
                         e.preventDefault();
-                        handleReset()
+                        handleResetPassword()
                     }}>
                         <h2>Reset Password.</h2>
                         <h5>We will send you an email to reset your password.</h5>
 
                         <label htmlFor="">Email</label><br/>
-                        <input type="email" /><br/>
+                        <input value={state.email} type="email" onChange={(e) => setState({...state, email: e.target.value})} /><br/>
 
                          <button className='submit-btn' type='submit'>Submit</button>
                         <button className='Cancel-btn' onClick={() => setResetOpen(false)}>Cancel</button>

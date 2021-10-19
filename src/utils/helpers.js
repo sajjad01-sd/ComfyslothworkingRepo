@@ -1,3 +1,6 @@
+import React from 'react'
+import { Redirect } from "react-router";
+
 export const localStorageService = {
   setItem: function (key, data) {
     localStorage.setItem(key, JSON.stringify(data))
@@ -45,3 +48,18 @@ export const getToken = () => {
   return token
 }
 
+export const checkAuthentication = (isAuthenticated, user) => {
+  const authenticated = isAuthenticated && user;
+
+  return authenticated;
+}
+
+export const redirectAfterSubmitUser = (authented) => {
+
+  if(authented) {
+    return (
+        <Redirect to='/checkout'></Redirect>
+    )
+}
+
+}

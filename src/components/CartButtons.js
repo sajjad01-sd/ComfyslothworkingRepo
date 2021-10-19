@@ -20,10 +20,12 @@ const CartButtons = () => {
           <span className="cart-value">{total_items}</span>
         </span>
       </Link>
-      {isAuthenticated ? 
+    {isAuthenticated ?
+      <Link to='/login'>
       <button className="auth-btn" onClick={userLogout}>
         Logout <FaUserMinus/>
       </button> 
+      </Link>
         :
         <Link to='/login'>
         <button className="auth-btn" onClick={closeSidebar}>

@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { PageHero, StripeCheckout } from "../components";
 // extra imports
 import { useCartContext } from "../context/cart_context";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useUserContext } from "../context/user_context";
+import { checkAuthentication } from "../utils/helpers";
 
 const CheckoutPage = () => {
   const {cart} = useCartContext();
+  const {kickout} = useUserContext();
+
+// kickout from this route
+  if(kickout) {
+    return (
+      <Redirect to='/login'></Redirect>
+    )
+  }
  
 
   return (
