@@ -8,13 +8,14 @@ import { checkAuthentication } from '../utils/helpers';
 
 
 export const Login = () => {
-    const {getUserLoggedIn, isAuthenticated, user, passwordReset} = useUserContext();
+    const {getUserLoggedIn, isAuthenticated, user, forgotPassword} = useUserContext();
     const [resetOpen, setResetOpen] = useState(false);
     const [state, setState] = useState({
         email: '',
         password: ''
     })
 
+     // if authented redirect 
     const authented = checkAuthentication(isAuthenticated, user);
 
  
@@ -38,8 +39,8 @@ export const Login = () => {
         setState({...state, email: '', password: ''})
       };
 
-      const handleResetPassword = () => {
-        passwordReset(state.email)
+      const handleForgotPassword = () => {
+        forgotPassword(state.email)
         setState({...state, email: ''})
       }
 
@@ -60,7 +61,7 @@ export const Login = () => {
                     {resetOpen ? 
                     <form action="" onSubmit={(e) => {
                         e.preventDefault();
-                        handleResetPassword()
+                        handleForgotPassword()
                     }}>
                         <h2>Reset Password.</h2>
                         <h5>We will send you an email to reset your password.</h5>

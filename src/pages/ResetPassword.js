@@ -1,12 +1,27 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import lottie from 'lottie-web';
 import styled from 'styled-components';
 import { PageHero } from '../components';
-import { Link } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
+import { useUserContext } from '../context/user_context';
+import { checkAuthentication } from '../utils/helpers';
 
 export const ResetPassword = () => {
-        const container = useRef(null)
+    const {isAuthenticated, user, resetPassword} = useUserContext();
+    const [state, setState] = useState({
+        newPassword: '',
+        newPasswordConfirm: ''
+    })
 
+      // get token for reset password
+      const {token} = useParams();
+
+
+    // if authented redirect
+    const authented = checkAuthentication(isAuthenticated, user);
+
+    // svg area
+        const container = useRef(null)
         useEffect(() => {
             lottie.loadAnimation({
               container: container.current,
@@ -16,6 +31,21 @@ export const ResetPassword = () => {
               animationData: require('../assets/SVG/Change-password.json')
             })
           }, []);
+
+          if(authented) {
+            return (
+                <Redirect to='/checkout'></Redirect>
+            )
+        }
+
+
+    // get token and set with update password
+    const handleResetPassword = (e) => {
+        e.preventDefault();
+        resetPassword(token, state.newPassword, state.newPasswordConfirm)
+
+        setState({...state, newPassword: '', newPasswordConfirm: ''})
+    }
     
         return (
             <>
@@ -23,17 +53,17 @@ export const ResetPassword = () => {
             <Wrapper>
                 <div className='content-area'>
                     
-                    <form action="">
+                    <form action="" onSubmit={(e) => {
+                        handleResetPassword(e)
+                    }}>
                         <h2>Reset Password.</h2>
                         <p>Please change your password here.</p>
         
                         <label htmlFor="">New Password</label><br/>
-                        <input type="password" /><br/>
+                        <input value={state.newPassword} type="password" onChange={(e) => setState({...state, newPassword: e.target.value})}/><br/>
 
                         <label htmlFor="">New Password Confirm</label><br/>
-                        <input type="password" /><br/>
-                        
-        
+                        <input type="password" value={state.newPasswordConfirm} onChange={(e) => setState({...state, newPasswordConfirm: e.target.value})}/><br/>
         
                         <button>Submit</button>
                     </form>

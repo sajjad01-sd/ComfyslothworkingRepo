@@ -100,7 +100,9 @@ export const UserProvider = ({ children }) => {
         const user = response.data.data.user
         const token = response.data.token;
   
-        //set token into local storage 
+        //set token into local storage
+      localStorage.setItem("jwt", token);
+
       
         if(token) {
           dispatch({type: "setUser", payload: user})
@@ -112,23 +114,58 @@ export const UserProvider = ({ children }) => {
   }
   //Signup area end
 
-  // password reset start
-  const passwordReset = async (email) => {
+  // password forgot start
+  const forgotPassword = async (email) => {
        try {
-         const response = axiosInstance.post('users/forgotPassword', {
+         const response = await axiosInstance.post('users/forgotPassword', {
            email
          })
+
+         
+         if(response.data.message) {
+           alert('Your password reset link sent to your email address')
+         }
        } catch (error) {
         const errorMessage = JSON.parse(error.request.response);
         alert(errorMessage.message);
        }
   };
-  // password reset end
+  // password forgot end
+
+  // password Reset start
+  const resetPassword = async (token,password,passwordConfirm) => {
+      try {
+        const response = await axiosInstance.patch(`users/resetPassword/${token}`, {
+          password,
+          passwordConfirm
+        })
+
+        console.log(response);
+        console.log(response.data.data.user, response.data.token);
+
+        const user = response.data.data.user
+        const userToken = response.data.token;
+        console.log(user, token);
+  
+        //set token into local storage
+        localStorage.setItem("jwt", userToken);
+
+      
+        if(token) {
+          dispatch({type: "setUser", payload: user})
+        }
+      } catch (error) {
+        console.log(error);
+        const errorMessage = JSON.parse(error.request.response);
+        alert(errorMessage.message);
+      }
+  }
+  // password Reset end
 
 
 
   return (
-    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin, userCreateAccount, passwordReset}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin, userCreateAccount, forgotPassword, resetPassword}}>{children}</UserContext.Provider>
   )
 }
 // make sure use
