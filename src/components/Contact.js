@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useUserContext } from "../context/user_context";
 
 const Contact = () => {
+  const {subscribeUser} = useUserContext()
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = () => {
+    subscribeUser(email)
+    setEmail('')
+  }
+
   return (
     <Wrapper>
       <div className="section-center">
@@ -13,11 +22,16 @@ const Contact = () => {
             asperiores. Ipsum reiciendis odit ullam dolores dignissimos. Quod
             cumque harum magni provident.
           </p>
-          <form className="contact-form">
+          <form className="contact-form"  onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit()
+          }}>
             <input
               type="email"
+              value={email}
               className="form-input"
               placeholder="enter email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <button type="submit" className="submit-btn">
               subscribe

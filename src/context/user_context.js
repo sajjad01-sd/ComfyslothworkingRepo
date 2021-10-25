@@ -140,17 +140,13 @@ export const UserProvider = ({ children }) => {
           passwordConfirm
         })
 
-        console.log(response);
-        console.log(response.data.data.user, response.data.token);
 
         const user = response.data.data.user
         const userToken = response.data.token;
-        console.log(user, token);
   
         //set token into local storage
         localStorage.setItem("jwt", userToken);
 
-      
         if(token) {
           dispatch({type: "setUser", payload: user})
         }
@@ -162,10 +158,27 @@ export const UserProvider = ({ children }) => {
   }
   // password Reset end
 
+  // subscribe newsletter start
+    const subscribeUser = async (email) => {
+      try {
+        const response = await axiosInstance.post('subcribers', {
+          email
+        })
+
+
+        // show message into alert
+        alert(response.data.message)
+      } catch (error) {
+         const errorMessage = JSON.parse(error.request.response);
+        alert(errorMessage.message);
+      }
+    }
+  // subscribe newsletter end
+
 
 
   return (
-    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin, userCreateAccount, forgotPassword, resetPassword}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, getUserLoggedIn, userLogout, userIntercting, isLogin, userCreateAccount, forgotPassword, resetPassword, subscribeUser}}>{children}</UserContext.Provider>
   )
 }
 // make sure use
