@@ -32,18 +32,19 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // add to cart
-  const addToCart = (id, color, amount, product) => {
-    dispatch({ type: ADD_TO_CART, payload: { id, color, amount, product } });
+  const addToCart = (_id, color, amount, product) => {
+    console.log(_id);
+    dispatch({ type: ADD_TO_CART, payload: { _id, color, amount, product } });
   };
 
   // remove item
-  const removeItem = (id) => {
-    dispatch({ type: REMOVE_CART_ITEM, payload: id });
+  const removeItem = (_id) => {
+    dispatch({ type: REMOVE_CART_ITEM, payload: _id });
   };
   // toggle amount
-  const toggleAmount = (id, value) => {
-    console.log(id, value);
-    dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } });
+  const toggleAmount = (_id, value) => {
+    console.log(_id, value);
+    dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { _id, value } });
   };
   // clear cart
   const clearCart = () => {

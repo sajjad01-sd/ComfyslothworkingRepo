@@ -1,32 +1,46 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { loadStripe } from '@stripe/stripe-js'
-import StripeCheckoutBtn from 'react-stripe-checkout'
+import { loadStripe } from "@stripe/stripe-js";
+import {useCartContext} from '../context/cart_context'
 
-import {
-  CardElement,
-  useStripe,
-  Elements,
-  useElements,
-} from '@stripe/react-stripe-js'
-import axios from 'axios'
-import { useCartContext } from '../context/cart_context'
-import { useUserContext } from '../context/user_context'
-import { formatPrice } from '../utils/helpers'
-import { useHistory } from 'react-router-dom'
+import axiosInstance from '../utils/axiosInstance'
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
 const CheckoutForm = () => {
+  const { cart, total_amount, shipping_fee, clearCart } = useCartContext()
+
+  console.log(cart);
+  // Test for payment or order single product start
+  // const makePayment = async id => {
+  //   try {
+  //     const session = await axiosInstance.get(`order/checkout-session/614b55f5bad8be5be3cce67b`)
+
+  //     console.log(session);
+
+  //     const stripe = await stripePromise;
+
+  //     stripe.redirectToCheckout({
+  //       sessionId: session.data.session.id
+  //     })
+
+      
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // Test for payment or order single product end
+
   return (
     <div>
-      <StripeCheckoutBtn/>
+      {/* <button onClick={() => makePayment('614b55f5bad8be5be3cce67b')}>Order</button> */}
     </div>
   )
 }
 
-const StripeCheckout = () => {
+const StripeCheckoutComponent = () => {
   return (
     <Wrapper>
-      <CheckoutForm />
+      <CheckoutForm /> 
     </Wrapper>
   )
 }
@@ -171,4 +185,4 @@ const Wrapper = styled.section`
   }
 `
 
-export default StripeCheckout
+export default StripeCheckoutComponent
