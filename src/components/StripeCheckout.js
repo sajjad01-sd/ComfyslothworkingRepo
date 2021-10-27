@@ -4,12 +4,38 @@ import { loadStripe } from "@stripe/stripe-js";
 import {useCartContext} from '../context/cart_context'
 
 import axiosInstance from '../utils/axiosInstance'
+import { useUserContext } from '../context/user_context';
+import { formatPrice } from '../utils/helpers';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
 const CheckoutForm = () => {
-  const { cart, total_amount, shipping_fee, clearCart } = useCartContext()
+  const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
+  const {user} = useUserContext()
 
-  console.log(cart);
+
+  // Payment for cart start
+  const makePayment = async () => {
+    try {
+      const session = await axiosInstance.post('order/checkout-session-cart', {
+        cart: cart,
+      })
+
+      const stripe = await stripePromise;
+
+        const check = stripe.redirectToCheckout({
+        sessionId: session.data.session.id
+      })
+
+
+
+      console.log(session);
+    } catch (error) {
+      const errorMessage = JSON.parse(error.request.response);
+      alert(errorMessage.message);
+    }
+  }
+  // Payment for cart end
+
   // Test for payment or order single product start
   // const makePayment = async id => {
   //   try {
@@ -31,8 +57,14 @@ const CheckoutForm = () => {
   // Test for payment or order single product end
 
   return (
-    <div>
-      {/* <button onClick={() => makePayment('614b55f5bad8be5be3cce67b')}>Order</button> */}
+    <div className='center_area'>
+      <div className="user_details">
+        <h3>Hello, {user.name}</h3>
+        <p className='total_price'>Your total is {formatPrice(total_amount)}</p>
+      </div>
+      <div className="payment_area">
+      <button onClick={() => makePayment()}>Make A Payment</button>
+      </div>
     </div>
   )
 }
@@ -46,7 +78,18 @@ const StripeCheckoutComponent = () => {
 }
 
 const Wrapper = styled.section`
-  form {
+.center_area {
+  text-align: center;
+}
+  .total_price {
+    font-size: 1.4rem;
+  }
+
+  .payment_area {
+    padding: 2rem 5rem;
+    border: 2px solid #00000069;
+  }
+  /* form {
     width: 30vw;
     align-self: center;
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
@@ -65,8 +108,8 @@ const Wrapper = styled.section`
     width: 100%;
     background: white;
     box-sizing: border-box;
-  }
-  .result-message {
+  } */
+  /* .result-message {
     line-height: 22px;
     font-size: 16px;
   }
@@ -77,8 +120,8 @@ const Wrapper = styled.section`
   }
   .hidden {
     display: none;
-  }
-  #card-error {
+  } */
+  /* #card-error {
     color: rgb(105, 115, 134);
     font-size: 16px;
     line-height: 20px;
@@ -97,7 +140,7 @@ const Wrapper = styled.section`
   #payment-request-button {
     margin-bottom: 32px;
   }
-  /* Buttons and links */
+  Buttons and links */
   button {
     background: #5469d4;
     font-family: Arial, sans-serif;
@@ -114,7 +157,7 @@ const Wrapper = styled.section`
     width: 100%;
   }
   button:hover {
-    filter: contrast(115%);
+    filter: contrast(150%);
   }
   button:disabled {
     opacity: 0.5;
