@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from "react-router";
+import useGlobalState from '../globalState/globalState';
 
 export const localStorageService = {
   setItem: function (key, data) {
@@ -28,7 +29,7 @@ export const formatPrice = (number) => {
 //   return wantedUrl;
 // };
 
-export const hostAddress = 'http://127.0.0.1:9000/api/v1'
+export const hostAddress = 'http://127.0.0.1:9000/api/v1';
 
 export const getUniqueValues = (data, type) => {
   let unique = data.map((item) => item[type]);
@@ -63,3 +64,4 @@ export const redirectAfterSubmitUser = (authented) => {
 }
 
 }
+

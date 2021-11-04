@@ -14,6 +14,7 @@ import {
 } from "../actions";
 import { hostAddress } from "../utils/helpers";
 import axiosInstance from "../utils/axiosInstance";
+import useGlobalState from '../globalState/globalState'
 
 const initialState = {
   isSidebarOpen: false,
@@ -30,6 +31,9 @@ const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // globalstate
+  const [globalError, setGlobalError] = useGlobalState('globalError')
 
   const openSidebar = () => {
     dispatch({ type: SIDEBAR_OPEN });

@@ -2,7 +2,9 @@ import axios from 'axios'
 import React, { useContext, useEffect, useReducer, useState } from 'react'
 import reducer from '../reducers/user_reducer'
 import axiosInstance from '../utils/axiosInstance';
-import {getToken, hostAddress} from '../utils/helpers';
+import {getToken, hostAddress, setGlobalState, setGlobalStateError} from '../utils/helpers';
+import useGlobalState from '../globalState/globalState'
+
 
 const initalState = {
   user: [],
@@ -14,11 +16,20 @@ const initalState = {
 const UserContext = React.createContext()
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initalState)
+  
+  //error handle with globalstate
+  const [globalError, setGlobalError] = useGlobalState('globalError')
+  const setGlobalStateError = (value) => {
+  
+    console.log(value);
+    setGlobalError(value)
+    
+  }
 
   //Login area start
   const userIntercting = async () => {
     try {
-      // token check, if !token return
+      // token check, if !token return 
       const token = getToken()
       if(!token) return ''
 
@@ -74,6 +85,9 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       const errorMessage = JSON.parse(error.request.response);
+      
+      // set error into the globalState
+      setGlobalStateError(errorMessage.message)
       alert(errorMessage.message);
     }
     
