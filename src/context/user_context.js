@@ -17,14 +17,15 @@ const UserContext = React.createContext()
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initalState)
   
+
   //error handle with globalstate
   const [globalError, setGlobalError] = useGlobalState('globalError')
   const setGlobalStateError = (value) => {
   
-    console.log(value);
     setGlobalError(value)
     
   }
+
 
   //Login area start
   const userIntercting = async () => {
@@ -45,6 +46,8 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       const errorMessage = JSON.parse(error.request.response);
       dispatch({type: 'userError'})
+       // set error into the globalState
+       setGlobalStateError(errorMessage.message)
       alert(errorMessage.message);
 
     }
@@ -123,6 +126,8 @@ export const UserProvider = ({ children }) => {
         }
       } catch (error) {
         const errorMessage = JSON.parse(error.request.response);
+         // set error into the globalState
+        setGlobalStateError(errorMessage.message)
         alert(errorMessage.message);
       }
   }
@@ -141,6 +146,8 @@ export const UserProvider = ({ children }) => {
          }
        } catch (error) {
         const errorMessage = JSON.parse(error.request.response);
+         // set error into the globalState
+        setGlobalStateError(errorMessage.message)
         alert(errorMessage.message);
        }
   };
@@ -167,6 +174,8 @@ export const UserProvider = ({ children }) => {
       } catch (error) {
         console.log(error);
         const errorMessage = JSON.parse(error.request.response);
+         // set error into the globalState
+        setGlobalStateError(errorMessage.message)
         alert(errorMessage.message);
       }
   }
@@ -184,6 +193,9 @@ export const UserProvider = ({ children }) => {
         alert(response.data.message)
       } catch (error) {
          const errorMessage = JSON.parse(error.request.response);
+         
+          // set error into the globalState
+        setGlobalStateError(errorMessage.message)
         alert(errorMessage.message);
       }
     }

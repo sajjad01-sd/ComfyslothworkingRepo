@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
 import { LoadingStart } from "./components/LoadingStart";
+import { ShowGlobalTexts } from "./components/ShowGlobalTexts";
 import { useUserContext } from "./context/user_context";
 
 import {
@@ -32,6 +33,7 @@ function App() {
     <Router>
       <Navbar />
       <Sidebar />
+      <ShowGlobalTexts/>
       <Switch>
         <Route exact path="/">
           <Home />
