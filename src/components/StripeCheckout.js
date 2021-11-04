@@ -11,22 +11,28 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
   const {user} = useUserContext()
+  const [loading, setLoading] = useState(false);
 
 
   // Payment for cart start
   const makePayment = async () => {
+    setLoading(true)
     try {
       const session = await axiosInstance.post('order/checkout-session-cart', {
         cart: cart,
       })
-
+     
+      
       const stripe = await stripePromise;
-
+      
+      if(stripe) {
+        setLoading(false)
+      }
         const check = stripe.redirectToCheckout({
         sessionId: session.data.session.id
       })
 
-
+      clearCart()
 
       console.log(session);
     } catch (error) {
@@ -60,9 +66,10 @@ const CheckoutForm = () => {
     <div className='center_area'>
       <div className="user_details">
         <h3>Hello, {user.name}</h3>
-        <p className='total_price'>Your total is {formatPrice(total_amount)}</p>
+        <p className='total_price'>Your total is {formatPrice(total_amount + shipping_fee)}</p>
       </div>
       <div className="payment_area">
+        {loading ? <h4>Loading...</h4> : ''}
       <button onClick={() => makePayment()}>Make A Payment</button>
       </div>
     </div>

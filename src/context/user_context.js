@@ -48,7 +48,6 @@ export const UserProvider = ({ children }) => {
       dispatch({type: 'userError'})
        // set error into the globalState
        setGlobalStateError(errorMessage.message)
-      alert(errorMessage.message);
 
     }
   }
@@ -91,7 +90,6 @@ export const UserProvider = ({ children }) => {
       
       // set error into the globalState
       setGlobalStateError(errorMessage.message)
-      alert(errorMessage.message);
     }
     
   }
@@ -128,7 +126,6 @@ export const UserProvider = ({ children }) => {
         const errorMessage = JSON.parse(error.request.response);
          // set error into the globalState
         setGlobalStateError(errorMessage.message)
-        alert(errorMessage.message);
       }
   }
   //Signup area end
@@ -148,7 +145,6 @@ export const UserProvider = ({ children }) => {
         const errorMessage = JSON.parse(error.request.response);
          // set error into the globalState
         setGlobalStateError(errorMessage.message)
-        alert(errorMessage.message);
        }
   };
   // password forgot end
@@ -176,7 +172,6 @@ export const UserProvider = ({ children }) => {
         const errorMessage = JSON.parse(error.request.response);
          // set error into the globalState
         setGlobalStateError(errorMessage.message)
-        alert(errorMessage.message);
       }
   }
   // password Reset end
@@ -193,10 +188,9 @@ export const UserProvider = ({ children }) => {
         alert(response.data.message)
       } catch (error) {
          const errorMessage = JSON.parse(error.request.response);
-         
+
           // set error into the globalState
         setGlobalStateError(errorMessage.message)
-        alert(errorMessage.message);
       }
     }
   // subscribe newsletter end

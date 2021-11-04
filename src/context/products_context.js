@@ -32,8 +32,6 @@ const ProductsContext = React.createContext();
 export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // globalstate
-  const [globalError, setGlobalError] = useGlobalState('globalError')
 
   const openSidebar = () => {
     dispatch({ type: SIDEBAR_OPEN });
