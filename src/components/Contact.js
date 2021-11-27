@@ -90,6 +90,26 @@ const Wrapper = styled.section`
   .submit-btn:hover {
     color: var(--clr-white);
   }
+
+  @media (max-width: 700px) {
+    .contact-form {
+    width: 50vw;
+    max-width: 300px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    }
+
+    .form-input,
+    .submit-btn {
+      font-size: 1rem;
+      padding: 0.3rem .1rem;
+      border: 2px solid var(--clr-black);
+    }
+    
+  }
+
+
+
   @media (min-width: 992px) {
     .content {
       display: grid;
@@ -102,8 +122,12 @@ const Wrapper = styled.section`
       margin-bottom: 0;
     }
   }
+
   @media (min-width: 1280px) {
     padding: 15rem 0;
+  }
+
+
   }
 `;
 

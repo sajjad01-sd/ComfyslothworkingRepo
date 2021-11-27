@@ -150,11 +150,30 @@ p {
   margin-top: 25%;
 }
 
+
+@media screen and (max-width: 500px) {
+  .start-loading--center {
+    margin-top: 0% !important;
+    
+    position: absolute;
+    top: 40vh;
+    left: 34vw;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .start-loading--center {
+    margin-top: 50vh;
+  }
+}
 @media screen and (min-width: 992px) {
   .section-center {
     width: 95vw;
   }
 }
+
+
 .text-center {
   text-align: center;
 }
