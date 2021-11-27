@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { loadStripe } from "@stripe/stripe-js";
 import {useCartContext} from '../context/cart_context'
@@ -28,13 +28,12 @@ const CheckoutForm = () => {
       if(stripe) {
         setLoading(false)
       }
-        const check = stripe.redirectToCheckout({
+        stripe.redirectToCheckout({
         sessionId: session.data.session.id
       })
 
       clearCart()
 
-      console.log(session);
     } catch (error) {
       const errorMessage = JSON.parse(error.request.response);
       alert(errorMessage.message);

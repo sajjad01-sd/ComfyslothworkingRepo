@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useUserContext } from '../context/user_context';
-import {LoadingStart} from '../components/LoadingStart'
 
 const PrivateRoute = ({children, ...rest}) => {
-  const {userLoading, isAuthenticated, user, isLogin} = useUserContext();
+  const {isLogin} = useUserContext();
 
   return (
     <Route {...rest} render={() => {

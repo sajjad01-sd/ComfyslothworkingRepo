@@ -1,8 +1,7 @@
-import axios from 'axios'
-import React, { useContext, useEffect, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import reducer from '../reducers/user_reducer'
 import axiosInstance from '../utils/axiosInstance';
-import {getToken, hostAddress, setGlobalState, setGlobalStateError} from '../utils/helpers';
+import {getToken} from '../utils/helpers';
 import useGlobalState from '../globalState/globalState'
 
 
@@ -36,7 +35,6 @@ export const UserProvider = ({ children }) => {
 
       dispatch({type: 'userLoading'})
       const response = await axiosInstance.get(`users/me`)
-      console.log(response);
       const user = response.data.data.doc
 
       if(user) {
@@ -75,7 +73,6 @@ export const UserProvider = ({ children }) => {
         email, password,
       })
   
-      console.log(response);
       const user = response.data.data.user
       const token = response.data.token;
   
@@ -109,8 +106,6 @@ export const UserProvider = ({ children }) => {
           password,
           passwordConfirm,
         })
-
-        console.log(response);
 
         const user = response.data.data.user
         const token = response.data.token;
@@ -168,7 +163,6 @@ export const UserProvider = ({ children }) => {
           dispatch({type: "setUser", payload: user})
         }
       } catch (error) {
-        console.log(error);
         const errorMessage = JSON.parse(error.request.response);
          // set error into the globalState
         setGlobalStateError(errorMessage.message)

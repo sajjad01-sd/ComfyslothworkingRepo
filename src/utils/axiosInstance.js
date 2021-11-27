@@ -1,4 +1,4 @@
-import { getToken, localStorageService } from "./helpers";
+import { getToken } from "./helpers";
 import axios from "axios";
 
 const defaultOptions = {
@@ -13,10 +13,6 @@ let axiosInstance = axios.create(defaultOptions);
 
 axiosInstance.interceptors.request.use(function (config) {
     let token = getToken();
-
-   
-    console.log(token);
-
     config.headers.Authorization = token ? `Bearer ${token}` : "";
 
     return config

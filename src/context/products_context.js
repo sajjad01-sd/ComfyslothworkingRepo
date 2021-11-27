@@ -1,7 +1,6 @@
                                                                                                        
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/products_reducer";
-import { products_url as url } from "../utils/constants";
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
@@ -12,9 +11,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
-import { hostAddress } from "../utils/helpers";
 import axiosInstance from "../utils/axiosInstance";
-import useGlobalState from '../globalState/globalState'
 
 const initialState = {
   isSidebarOpen: false,
@@ -45,13 +42,11 @@ export const ProductsProvider = ({ children }) => {
     try {
      
       const responce = await axiosInstance.get(`store-products`);
-      console.log(responce);
     
       const products = responce.data.data.products;
 
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
-      console.log(error);
       dispatch({ type: GET_PRODUCTS_ERROR });
     }
   };
@@ -61,8 +56,6 @@ export const ProductsProvider = ({ children }) => {
     try {
       const responce = await axiosInstance.get(apilink);
   
-      console.log(responce);
-
       const singleProduct = responce.data.data.product
       dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: singleProduct });
     } catch (error) {

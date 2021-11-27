@@ -1,6 +1,5 @@
 import React from "react";
 import { GiCompass, GiDiamondHard, GiStabbedNote } from "react-icons/gi";
-import { urlDetector } from "./helpers";
 export const links = [
   {
     id: 1,

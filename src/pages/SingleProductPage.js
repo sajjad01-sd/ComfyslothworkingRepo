@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useProductsContext } from "../context/products_context";
-import { single_product_url as url } from "../utils/constants";
-import { formatPrice, hostAddress } from "../utils/helpers";
+import { formatPrice } from "../utils/helpers";
 import {
   Loading,
   Error,
@@ -10,7 +9,6 @@ import {
   AddToCart,
   Stars,
   PageHero,
-  ShowReviews,
 } from "../components";
 import styled from "styled-components";
 import { Link } from "react-router-dom";

@@ -20,17 +20,31 @@ export const ResetPassword = () => {
     // if authented redirect
     const authented = checkAuthentication(isAuthenticated, user);
 
-    // svg area
+    // animation area start
         const container = useRef(null)
-        useEffect(() => {
-            lottie.loadAnimation({
-              container: container.current,
-              renderer: 'svg',
-              loop: true,
-              autoplay: true,
-              animationData: require('../assets/SVG/Change-password.json')
-            })
-          }, []);
+            useEffect(() => {
+                let loadUrl;
+                if(process.env.REACT_APP_APP_MODE === 'development') {
+                loadUrl='http://localhost:3000/json/Change-password.json'
+                }
+                if(process.env.REACT_APP_APP_MODE === 'production') {
+                    loadUrl=`${process.env.REACT_APP_HOST_ADDRESS}json/Change-password.json`
+                }
+            //   loadAnimation(loadUrl, container)
+                fetch(loadUrl).then(async response => {
+                    const animationData = await response.json();
+                    lottie.loadAnimation({
+                        container: container.current,
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        animationData
+                    })
+                })
+             }, []);
+    // animation area end
+
+          
 
           if(authented) {
             return (

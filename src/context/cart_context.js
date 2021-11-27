@@ -33,7 +33,6 @@ export const CartProvider = ({ children }) => {
 
   // add to cart
   const addToCart = (_id, color, amount, product) => {
-    console.log(_id);
     dispatch({ type: ADD_TO_CART, payload: { _id, color, amount, product } });
   };
 
@@ -43,7 +42,6 @@ export const CartProvider = ({ children }) => {
   };
   // toggle amount
   const toggleAmount = (id, value) => {
-    console.log(id, value);
     dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } });
   };
   // clear cart

@@ -23,14 +23,25 @@ export const Login = () => {
     const container = useRef(null)
 
     useEffect(() => {
-        lottie.loadAnimation({
-          container: container.current,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          animationData: require('../assets/SVG/Login Colored.json')
+        let loadUrl;
+        if(process.env.REACT_APP_APP_MODE === 'development') {
+          loadUrl='http://localhost:3000/json/Login-Colored.json'
+        }
+        if(process.env.REACT_APP_APP_MODE === 'production') {
+            loadUrl=`${process.env.REACT_APP_HOST_ADDRESS}json/Login-Colored.json`
+        }
+      //   loadAnimation(loadUrl, container)
+        fetch(loadUrl).then(async response => {
+            const animationData = await response.json();
+            lottie.loadAnimation({
+                container: container.current,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData
+              })
         })
-      }, []);
+  }, []);
     // animated svg area end
 
       const handleLogin = () => {

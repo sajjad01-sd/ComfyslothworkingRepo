@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import { PageHero } from '../components';
 import { Link, Redirect } from 'react-router-dom';
 import { useUserContext } from '../context/user_context';
-import { checkAuthentication, redirectAfterSubmitUser } from '../utils/helpers';
+import { checkAuthentication, loadAnimation } from '../utils/helpers';
+
 
 
 export const Signup = () => {
     const container = useRef(null);
+    // let container2;
     const {userCreateAccount, user, isAuthenticated} = useUserContext()
     const [state, setState] = useState({
         name: '',
@@ -16,20 +18,30 @@ export const Signup = () => {
         password: '',
         passwordConfirm: ''
     })
-
+    
     // if authented redirect 
     const authented = checkAuthentication(isAuthenticated, user);
     
-    
-      useEffect(() => {
-          lottie.loadAnimation({
-              container: container.current,
-              renderer: 'svg',
-              loop: true,
-              autoplay: true,
-              animationData: require('../assets/SVG/Welcome.json')
-            })
-        }, []);
+    useEffect(() => {
+          let loadUrl;
+          if(process.env.REACT_APP_APP_MODE === 'development') {
+            loadUrl='http://localhost:3000/json/Welcome.json'
+          }
+          if(process.env.REACT_APP_APP_MODE === 'production') {
+              loadUrl=`${process.env.REACT_APP_HOST_ADDRESS}json/Welcome.json`
+          }
+        //   loadAnimation(loadUrl, container)
+          fetch(loadUrl).then(async response => {
+              const animationData = await response.json();
+              lottie.loadAnimation({
+                  container: container.current,
+                  renderer: 'svg',
+                  loop: true,
+                  autoplay: true,
+                  animationData
+                })
+          })
+    }, []);
         
         const handleSubmit = (e) => {
             e.preventDefault();

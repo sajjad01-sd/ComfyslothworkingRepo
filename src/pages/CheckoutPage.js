@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { PageHero, StripeCheckout } from "../components";
 // extra imports
 import { useCartContext } from "../context/cart_context";
 import { Link, Redirect } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
-import { checkAuthentication } from "../utils/helpers";
 
 const CheckoutPage = () => {
   const {cart} = useCartContext();

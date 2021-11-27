@@ -1,6 +1,7 @@
 import React from 'react'
 import { Redirect } from "react-router";
-import useGlobalState from '../globalState/globalState';
+import lottie from 'lottie-web';
+
 
 export const localStorageService = {
   setItem: function (key, data) {
@@ -29,13 +30,12 @@ export const formatPrice = (number) => {
 //   return wantedUrl;
 // };
 
-export const hostAddress = 'http://127.0.0.1:9000/api/v1';
+// export const hostAddress = 'http://127.0.0.1:9000/api/v1';
 
 export const getUniqueValues = (data, type) => {
   let unique = data.map((item) => item[type]);
   if (type === "colors") {
     unique = unique.flat();
-    console.log(unique);
   }
   return ["all", ...new Set(unique)];
 };
@@ -65,3 +65,16 @@ export const redirectAfterSubmitUser = (authented) => {
 
 }
 
+// export const loadAnimation = function(url,container) {
+//    fetch(url).then(async response => {
+//         const animationData = await response.json();
+//         lottie.loadAnimation({
+//             container: container.current,
+//             renderer: 'svg',
+//             loop: true,
+//             autoplay: true,
+//             animationData
+//     })
+//   })
+
+// }
