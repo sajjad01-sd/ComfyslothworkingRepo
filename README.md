@@ -1,5 +1,5 @@
 # ComfySloth
-### It's a MERN stack ecommerce website with stripe payment gateway.
+### It's a MERN stack e-commerce website with stripe payment gateway.
 
 ## Installation and start
 Yes, Backend Cors now open you can try it on your localhost.
