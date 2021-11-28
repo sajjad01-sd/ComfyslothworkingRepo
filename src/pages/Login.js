@@ -7,7 +7,7 @@ import { useUserContext } from '../context/user_context';
 import { checkAuthentication } from '../utils/helpers';
 
 
-export const Login = () => {
+  const Login = () => {
     const {getUserLoggedIn, isAuthenticated, user, forgotPassword} = useUserContext();
     const [resetOpen, setResetOpen] = useState(false);
     const [state, setState] = useState({
@@ -280,3 +280,5 @@ const Wrapper = styled.div`
         transform: translate(-50%, -50%);
     } */
 `
+
+export default Login;

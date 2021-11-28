@@ -8,7 +8,7 @@ import { checkAuthentication, loadAnimation } from '../utils/helpers';
 
 
 
-export const Signup = () => {
+ const Signup = () => {
     const container = useRef(null);
     // let container2;
     const {userCreateAccount, user, isAuthenticated} = useUserContext()
@@ -226,3 +226,5 @@ const Wrapper = styled.div`
         transform: translate(-50%, -50%);
     } */
 `
+
+export default Signup;

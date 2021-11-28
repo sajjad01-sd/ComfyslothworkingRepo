@@ -6,7 +6,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { useUserContext } from '../context/user_context';
 import { checkAuthentication } from '../utils/helpers';
 
-export const ResetPassword = () => {
+ const ResetPassword = () => {
     const {isAuthenticated, user, resetPassword} = useUserContext();
     const [state, setState] = useState({
         newPassword: '',
@@ -226,3 +226,6 @@ const Wrapper = styled.div`
         transform: translate(-50%, -50%);
     } */
 `
+
+
+export default ResetPassword;

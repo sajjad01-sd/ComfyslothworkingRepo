@@ -12,6 +12,7 @@
     "axios": "^0.21.4",
     "dotenv": "^8.2.0",
     "lottie-web": "^5.7.13",
+    "node-sass": "^4.14.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hooks-global-state": "^1.0.2",
@@ -52,6 +53,6 @@
   },
   "devDependencies": {
     "netlify-cli": "^3.10.1",
-    "sass": "^1.43.2"
+    "sass": "^1.43.5"
   }
 }
