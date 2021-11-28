@@ -1,4 +1,5 @@
 # ComfySloth
+[Link to Google](https://www.google.com)
 ### It's a MERN stack e-commerce website with stripe payment gateway.
 
 ## Installation and start
