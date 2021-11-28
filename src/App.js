@@ -2,23 +2,36 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
 import { LoadingStart } from "./components/LoadingStart";
-import Loading from "./components/Loading";
 import { ShowGlobalTexts } from "./components/ShowGlobalTexts";
 import { useUserContext } from "./context/user_context";
 
+import {
+  About,
+  Cart,
+  Checkout,
+  Error,
+  PrivateRoute,
+  Products,
+  SingleProduct
+} from './pages'
 
-const About = lazy(() => import('./pages/AboutPage'));
-const Cart = lazy(() => import('./pages/CartPage'));
-const Checkout = lazy(() => import('./pages/CheckoutPage'));
-const Error = lazy(() => import('./pages/ErrorPage'));
+import Login from './pages/Login'
+import ResetPassword from './pages/ResetPassword'
+import Signup from './pages/Signup'
+
+// const About = lazy(() => import('./pages/AboutPage'));
+// const Cart = lazy(() => import('./pages/CartPage'));
+// const Checkout = lazy(() => import('./pages/CheckoutPage'));
+// const Error = lazy(() => import('./pages/ErrorPage'));
 const Home = lazy(() => import('./pages/HomePage'));
-const PrivateRoute = lazy(() => import('./pages/PrivateRoute'));
-const Products = lazy(() => import('./pages/ProductsPage'));
-const SingleProduct = lazy(() => import('./pages/SingleProductPage'));
+// const PrivateRoute = lazy(() => import('./pages/PrivateRoute'));
+// const Products = lazy(() => import('./pages/ProductsPage'));
+// const SingleProduct = lazy(() => import('./pages/SingleProductPage'));
 
-const Login = lazy(() => import('./pages/Login'));
-const ResetPassword = lazy(() => import('./pages/ResetPassword'));
-const Signup = lazy(() => import('./pages/Signup'));
+
+// const Login = lazy(() => import('./pages/Login'));
+// const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+// const Signup = lazy(() => import('./pages/Signup'));
 
 
 function App() {
@@ -36,10 +49,11 @@ function App() {
       <Navbar />
       <Sidebar />
       <ShowGlobalTexts/>
-      <Suspense fallback={<Loading/>}>
         <Switch>
           <Route exact path="/">
+           <Suspense fallback={''}>
             <Home />
+          </Suspense>
           </Route>
           <Route exact path="/about">
             <About />
@@ -65,7 +79,6 @@ function App() {
             <Error />
           </Route>
         </Switch>
-      </Suspense>
       <Footer />
     </Router>
   );
