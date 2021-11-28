@@ -1,26 +1,15 @@
-## Notes
+# ComfySloth
+### It's a MERN stack mini ecommerce website with stripe payment gateway.
 
-#### Older React Version
-
-```
-"react": "^16.13.1",
-"react-dom": "^16.13.1",
-"react-scripts": "3.4.3",
-```
-
-#### Current React Version
+## Installation and start
+Yes, Backend Cors now open you can try it on your localhost.
 
 ```
-"react": "^17.0.1",
-"react-dom": "^17.0.1",
-"react-scripts": "4.0.0",
+npm install
+npm start
 ```
+Backend repo link -> https://github.com/sajjad960/ComfySloth_Nodejs-Backend.git
 
-#### Alternative fix
-
-.env file in the root
-FAST_REFRESH=FALSE
-
-// DYNAMIC URL
-I make the api url dynamic....
-helpers provide function with url and constant catch the url.
+### Deployed Tools
+Cloud(Ubuntu) - Digitalocean
+Webserver - NGINX
