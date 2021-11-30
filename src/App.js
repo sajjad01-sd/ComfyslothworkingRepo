@@ -19,20 +19,9 @@ import Home from './pages/HomePage';
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Signup from './pages/Signup'
-import { getToken } from "./utils/helpers";
 
 
 function App() {
-  const [ spinner, setSpinner ] = useState(true);
-
-  useEffect(() => {
-    const token = getToken();
-    if(token) {
-      setSpinner(false)
-    }
-    setTimeout(() => setSpinner(false), 3000);
-  }, []);
-
   const {userLoading} = useUserContext();
   
   if(userLoading) {
@@ -42,14 +31,6 @@ function App() {
       </div>
     )
   }
-  if(window.innerWidth < 720 && spinner) {
-    return (
-      <div className='start-loading--center'>
-        <LoadingStart/>
-      </div>
-    )
-  }
-
 
 
   return (
