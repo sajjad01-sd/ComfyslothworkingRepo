@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
 import { LoadingStart } from "./components/LoadingStart";
@@ -15,28 +15,42 @@ import {
   SingleProduct
 } from './pages'
 
+import Home from './pages/HomePage';
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Signup from './pages/Signup'
-
-const Home = lazy(() => import('./pages/HomePage'));
+import { getToken } from "./utils/helpers";
 
 
 function App() {
   const [ spinner, setSpinner ] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setSpinner(false), 2000)
+    const token = getToken();
+    if(token) {
+      setSpinner(false)
+    }
+    setTimeout(() => setSpinner(false), 3000);
   }, []);
 
-  const {userLoading} = useUserContext()
-  if(userLoading || spinner) {
+  const {userLoading} = useUserContext();
+  
+  if(userLoading) {
     return (
       <div className='start-loading--center'>
         <LoadingStart/>
       </div>
     )
   }
+  if(window.innerWidth < 720 && spinner) {
+    return (
+      <div className='start-loading--center'>
+        <LoadingStart/>
+      </div>
+    )
+  }
+
+
 
   return (
     <Router>
@@ -45,9 +59,7 @@ function App() {
       <ShowGlobalTexts/>
         <Switch>
           <Route exact path="/">
-           <Suspense fallback={''}>
             <Home />
-          </Suspense>
           </Route>
           <Route exact path="/about">
             <About />
