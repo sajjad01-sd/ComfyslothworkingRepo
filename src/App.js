@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
 import { LoadingStart } from "./components/LoadingStart";
@@ -19,24 +19,18 @@ import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Signup from './pages/Signup'
 
-// const About = lazy(() => import('./pages/AboutPage'));
-// const Cart = lazy(() => import('./pages/CartPage'));
-// const Checkout = lazy(() => import('./pages/CheckoutPage'));
-// const Error = lazy(() => import('./pages/ErrorPage'));
 const Home = lazy(() => import('./pages/HomePage'));
-// const PrivateRoute = lazy(() => import('./pages/PrivateRoute'));
-// const Products = lazy(() => import('./pages/ProductsPage'));
-// const SingleProduct = lazy(() => import('./pages/SingleProductPage'));
-
-
-// const Login = lazy(() => import('./pages/Login'));
-// const ResetPassword = lazy(() => import('./pages/ResetPassword'));
-// const Signup = lazy(() => import('./pages/Signup'));
 
 
 function App() {
+  const [ spinner, setSpinner ] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setSpinner(false), 2000)
+  }, []);
+
   const {userLoading} = useUserContext()
-  if(userLoading) {
+  if(userLoading || spinner) {
     return (
       <div className='start-loading--center'>
         <LoadingStart/>
