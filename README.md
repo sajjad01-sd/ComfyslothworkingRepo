@@ -11,6 +11,7 @@
 * Admin Power(Only backend Implemented).
 * User Login with Token.
 * User subscribe.
+* Stripe payment with session token.
 
 ## Installation and start
 Yes, Backend Cors now open you can try it on your localhost.
