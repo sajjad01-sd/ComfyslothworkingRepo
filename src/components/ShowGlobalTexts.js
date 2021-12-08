@@ -48,8 +48,9 @@ position: relative;
         padding: 1.1% 2.5% 1% 2.5%;
         background-color: var(--clr-red-light);
         border-radius: 0px 0 50px 50px;
-        position: absolute;
+        position: fixed;
         right: 0;
+        z-index: 50000;
         
     }
     &_text {
