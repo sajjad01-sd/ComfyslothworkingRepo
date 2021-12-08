@@ -2,6 +2,17 @@
 [Live Link](https://comfysloth.findsajjad.com/)
 ### It's a MERN stack e-commerce website with stripe payment gateway.
 
+## Features
+* Geting All Products and Single Product.
+* Signup.
+* Login.
+* Forgot Password.
+* Reset Password (with token expires security)
+* Admin Power(Only backend Implemented).
+* User Login with Token.
+* User subscribe.
+* Stripe payment with session token.
+
 ## Installation and start
 Yes, Backend Cors now open you can try it on your localhost.
 
