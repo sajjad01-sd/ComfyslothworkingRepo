@@ -69,6 +69,7 @@ export const UserProvider = ({ children }) => {
 
   const getUserLoggedIn = async (email, password) => {
     try {
+      dispatch({type: 'userLoading'})
       const response = await axiosInstance.post("users/login", {
         email, password,
       })
@@ -79,11 +80,14 @@ export const UserProvider = ({ children }) => {
       //set token into local storage
       localStorage.setItem("jwt", token);
     
+
       if(token) {
         dispatch({type: "setUser", payload: user})
       }
     } catch (error) {
       const errorMessage = JSON.parse(error.request.response);
+      dispatch({type: 'userError'})
+
       
       // set error into the globalState
       setGlobalStateError(errorMessage.message)
@@ -100,6 +104,7 @@ export const UserProvider = ({ children }) => {
   //Signup area start
   const userCreateAccount = async (name,email,password,passwordConfirm) => {
       try {
+      dispatch({type: 'userLoading'})
         const response = await axiosInstance.post("/users/signup", {
           name,
           email,
@@ -119,6 +124,8 @@ export const UserProvider = ({ children }) => {
         }
       } catch (error) {
         const errorMessage = JSON.parse(error.request.response);
+      dispatch({type: 'userError'})
+
          // set error into the globalState
         setGlobalStateError(errorMessage.message)
       }
